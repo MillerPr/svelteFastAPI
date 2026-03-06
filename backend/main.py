@@ -38,7 +38,7 @@ async def get_authors():
     response = supabase.table("authors").select("id, first_name, last_name").execute()
     return response.data
 
-@app.get("/titles_by_author")
+@app.get("/titles-by-author")
 async def get_all_titles():
     # We select specific columns from 'titles'
     # Then we reach through 'author_title' into 'authors'
