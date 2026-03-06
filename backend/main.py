@@ -12,7 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://svelte-fast-api.vercel.app/",
+    "https://sveltefastapi.onrender.com",
 ]
 
 app.add_middleware(
