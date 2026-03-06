@@ -1,0 +1,30 @@
+node_modules
+# Ignore backend secrets
+backend/.env
+
+# Ignore python artifacts
+backend/__pycache__/
+backend/venv/
+
+# Output
+frontend/fast/.output
+frontend/fast/.vercel
+frontend/fast/.netlify
+frontend/fast/.wrangler
+frontend/fast/.svelte-kit
+frontend/fast/build
+
+# OS
+frontend/fast/.DS_Store
+frontend/fast/Thumbs.db
+
+# Env
+frontend/fast/.env
+frontend/fast/.env.*
+frontend/fast/!.env.example
+frontend/fast/!.env.test
+
+
+# Vite
+frontend/fast/vite.config.js.timestamp-*
+frontend/fast/vite.config.ts.timestamp-*
