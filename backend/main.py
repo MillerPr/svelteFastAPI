@@ -40,8 +40,8 @@ async def get_authors():
 
 @app.get("/titles-by-author")
 async def get_all_titles():
-    # We select specific columns from 'titles'
-    # Then we reach through 'author_title' into 'authors'
+    # Select specific columns from 'titles'
+    # Then reach through the 'author_title' table into 'authors'
     response = (
         supabase.table("titles")
         .select("""
@@ -64,8 +64,9 @@ async def get_all_titles():
 
 @app.get("/titles-by-author/{author_id}")
 async def get_titles(author_id: int):
-    # This implements your JOIN logic using Supabase's syntax
+    # This implements JOIN logic using Supabase's syntax
     # We query 'titles', join 'author_title', and filter by the 'author_fk'
+    # Room for improvement here.
     response = (
         supabase.table("titles")
         .select("*, at:author_title!inner(author_fk)")
@@ -77,6 +78,7 @@ async def get_titles(author_id: int):
 @app.patch("/titles/{title_id}")
 async def update_title(title_id: int, updates: dict):
     # Supabase .update() only changes the columns provided in the dict
+    # Not implemented yet.
     response = (
         supabase.table("titles")
         .update(updates)

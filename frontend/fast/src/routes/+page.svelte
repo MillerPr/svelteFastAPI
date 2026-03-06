@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { PUBLIC_API_URL } from '$env/static/public';
-	// 1. Receive the authors from the load function
+
 	let { data } = $props();
-	$inspect(data);
+	//$inspect(data);
+	// Wait, just in case the process is slow.
 	let loading = $derived(!data.authors || data.authors.length === 0);
 
-	// 2. Local state for the dynamic selection
 	let selectedAuthorId = $state('');
 	let titles = $state<any[]>([]);
-	$inspect(titles);
+	//$inspect(titles);
 	let titleCount = $derived(titles.length);
 	let isFetching = $state(false);
 
-	// 3. Effect to fetch books when the selection changes
+	// Effect to fetch books when the selection changes
 	$effect(() => {
 		if (selectedAuthorId) {
 			isFetching = true; // Start loading
@@ -31,6 +31,7 @@
 
 <div class="mx-auto max-w-xl space-y-4 p-6">
 	<h1 class="text-2xl font-bold">Library Browser</h1>
+	<!-- This should not be displayed because I ping the Render backend in +layout.svelte -->
 	{#if loading}
 		<div class="flex items-center gap-2">
 			<div class="h-4 w-4 animate-spin rounded-full border-b-2 border-indigo-600"></div>
@@ -62,6 +63,8 @@
 			{/each}
 		</ul>
 	{:else if selectedAuthorId}
-		<p class="text-sm text-muted-foreground italic">No books found for this author.</p>
+		<p class="text-sm text-muted-foreground italic">
+			No books found for this author. (Check the backend logs.)
+		</p>
 	{/if}
 </div>
