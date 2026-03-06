@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_API_URL } from '$env/static/public';
 	// 1. Receive the authors from the load function
 	let { data } = $props();
 	$inspect(data);
@@ -15,7 +16,7 @@
 	$effect(() => {
 		if (selectedAuthorId) {
 			isFetching = true; // Start loading
-			fetch(`http://localhost:8000/titles-by-author/${selectedAuthorId}`)
+			fetch(`${PUBLIC_API_URL}titles-by-author/${selectedAuthorId}`)
 				.then((res) => res.json())
 				.then((val) => {
 					titles = val;
