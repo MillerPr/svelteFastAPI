@@ -9,12 +9,18 @@ load_dotenv()
 app = FastAPI()
 
 # Enable CORS for SvelteKit dev server
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://svelte-fast-api.vercel.app/",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_orgins=["https://svelte-fast-api.vercel.app/"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=origins,           # Only allow these specific domains
+    allow_credentials=True,
+    allow_methods=["*"],             # Allows GET, POST, etc.
+    allow_headers=["*"],             # Allows custom headers
 )
 
 supabase: Client = create_client(
