@@ -77,6 +77,7 @@ async def get_titles(author_id: int):
 
 @app.patch("/titles/{title_id}")
 async def update_title(title_id: int, updates: dict):
+    print(f"DEBUG: Received updates for {title_id}: {updates}")
     # Supabase .update() only changes the columns provided in the dict
     # Not implemented yet.
     response = (

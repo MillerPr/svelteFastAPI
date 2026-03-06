@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_API_URL } from '$env/static/public';
+	import * as Select from '$lib/components/ui/select';
 
 	let { data } = $props();
 	//$inspect(data);
@@ -11,6 +12,15 @@
 	//$inspect(titles);
 	let titleCount = $derived(titles.length);
 	let isFetching = $state(false);
+	let selectOptions: Array<{ value: string; label: string }> = $derived(
+		data.authors.map((author: { id: string; last_name: string; first_name: string }) => ({
+			value: author.id,
+			label: `${author.last_name}, ${author.first_name}`
+		}))
+	);
+	const triggerContent = $derived(
+		selectOptions.find((f) => f.value === selectedAuthorId)?.label ?? 'Select an author'
+	);
 
 	// Effect to fetch books when the selection changes
 	$effect(() => {
@@ -39,14 +49,25 @@
 		</div>
 	{/if}
 
-	<select bind:value={selectedAuthorId} class="w-full rounded-md border bg-background p-2">
-		<option value="">Select an Author...</option>
-		{#each data.authors as author}
-			<option value={author.id}>
-				{author.last_name}, {author.first_name}
-			</option>
-		{/each}
-	</select>
+	<Select.Root type="single" name="favoriteFruit" bind:value={selectedAuthorId}>
+		<Select.Trigger class="w-96" aria-label="Select an author">
+			{triggerContent}
+		</Select.Trigger>
+		<Select.Content>
+			<Select.Group>
+				<Select.Label>Authors</Select.Label>
+				{#each selectOptions as option (option.value)}
+					<Select.Item
+						value={option.value}
+						label={option.label}
+						disabled={option.value === 'grapes'}
+					>
+						{option.label}
+					</Select.Item>
+				{/each}
+			</Select.Group>
+		</Select.Content>
+	</Select.Root>
 
 	{#if isFetching}
 		<div class="flex items-center gap-2 text-slate-500 italic">
