@@ -16,7 +16,7 @@
 	$effect(() => {
 		if (selectedAuthorId) {
 			isFetching = true; // Start loading
-			fetch(`${PUBLIC_API_URL}titles-by-author/${selectedAuthorId}`)
+			fetch(`${PUBLIC_API_URL}/titles-by-author/${selectedAuthorId}`)
 				.then((res) => res.json())
 				.then((val) => {
 					titles = val;

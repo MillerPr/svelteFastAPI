@@ -6,7 +6,7 @@
 	let { children } = $props();
 	$effect(() => {
 		// This will now use Localhost during dev and Render in production
-		fetch(`${PUBLIC_API_URL}health`).catch(() => console.log('API is waking up...'));
+		fetch(`${PUBLIC_API_URL}/health`).catch(() => console.log('API is waking up...'));
 	});
 </script>
 
